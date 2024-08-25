@@ -21,12 +21,12 @@ public final class App {
 
         // BEGIN
         app.get("/companies/{id}", ctx -> {
-            try {
-                var companyId = ctx.pathParamAsClass("id", Integer.class).get();
-                ctx.json(COMPANIES.get(companyId));
-            } catch (Exception e) {
-                throw new NotFoundResponse("Company not found");
-            }
+            var companyId = ctx.pathParam("id");
+            var company = COMPANIES.stream()
+                    .filter(map -> map.get("id").equals(companyId))
+                    .findFirst()
+                    .orElseThrow(() -> new NotFoundResponse("Company not found"));
+            ctx.json(company);
         });
         // END
 
