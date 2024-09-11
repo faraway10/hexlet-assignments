@@ -27,9 +27,9 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             @if(page.getPageNumber() > 1)
-                <li class="page-item"><a class="page-link" href="${NamedRoutes.postsPath() + "?page=" + (page.getPageNumber() - 1)}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="?page=${(page.getPageNumber() - 1)}">Previous</a></li>
             @endif
-            <li class="page-item"><a class="page-link" href="${NamedRoutes.postsPath() + "?page=" + (page.getPageNumber() + 1)}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page=${(page.getPageNumber() + 1)}">Next</a></li>
         </ul>
     </nav>
 @endif
