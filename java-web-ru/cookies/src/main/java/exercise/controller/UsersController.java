@@ -1,5 +1,6 @@
 package exercise.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import exercise.util.Security;
 import exercise.model.User;
 import exercise.util.NamedRoutes;
@@ -34,10 +35,10 @@ public class UsersController {
     }
 
     public static void create(Context ctx) throws Exception {
-        var firstName = ctx.formParam("firstName");
-        var lastName = ctx.formParam("lastName");
-        var email = ctx.formParam("email");
-        var password = ctx.formParam("password");
+        var firstName = StringUtils.capitalize(ctx.formParam("firstName"));
+        var lastName = StringUtils.capitalize(ctx.formParam("lastName"));
+        var email = ctx.formParam("email").trim().toLowerCase();
+        var password = Security.encrypt(ctx.formParam("password"));
         var token = Security.generateToken();
 
         var user = new User(
