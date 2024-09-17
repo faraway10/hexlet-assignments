@@ -2,6 +2,7 @@ package exercise.controller;
 
 import static io.javalin.rendering.template.TemplateUtil.model;
 import exercise.dto.LoginPage;
+import exercise.dto.MainPage;
 import exercise.repository.UsersRepository;
 
 import exercise.util.Security;
@@ -11,6 +12,11 @@ import io.javalin.http.NotFoundResponse;
 public class SessionsController {
 
     // BEGIN
+    public static void index(Context ctx) {
+        var page = new MainPage(ctx.sessionAttribute("currentUser"));
+        ctx.render("index.jte", model("page", page));
+    }
+
     public static void build(Context ctx) {
         var page = new LoginPage(null, null);
         ctx.render("build.jte", model("page", page));
