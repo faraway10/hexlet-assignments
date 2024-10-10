@@ -1,6 +1,7 @@
 package exercise.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,12 +27,11 @@ public class ProductsController {
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
     public List<Product> index(
-            @RequestParam(required = false) Integer min,
-            @RequestParam(required = false) Integer max) {
-        min = min != null ? min : Integer.MIN_VALUE;
-        max = max != null ? max : Integer.MAX_VALUE;
+            @RequestParam(defaultValue = Integer.MIN_VALUE + "") Integer min,
+            @RequestParam(defaultValue = Integer.MAX_VALUE + "") Integer max) {
 
-        var products = productRepository.findByPriceBetweenOrderByPrice(min, max);
+        Sort sort = Sort.by(Sort.Order.asc("price"));
+        var products = productRepository.findByPriceBetween(min, max, sort);
 
         if (products.isEmpty()) {
             throw new ResourceNotFoundException("There are no products of such price range");
