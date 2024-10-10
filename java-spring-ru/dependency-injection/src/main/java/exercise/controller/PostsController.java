@@ -32,23 +32,18 @@ public class PostsController {
         return postRepository.findAll();
     }
 
-    @GetMapping(path = "/{id}")
-    public Post index(@PathVariable Long id) {
-        var maybePost = postRepository.findById(id);
-
-        if (maybePost.isPresent()) {
-            return maybePost.get();
-        } else {
-            throw new ResourceNotFoundException("Post with id " + id + " not found");
-        }
-    }
-
     @PostMapping(path = "")
     @ResponseStatus(HttpStatus.CREATED)
     public Post create(@RequestBody Post post) {
         postRepository.save(post);
 
         return post;
+    }
+
+    @GetMapping(path = "/{id}")
+    public Post show(@PathVariable Long id) {
+        return postRepository.findById(id)
+                .orElseThrow(() ->  new ResourceNotFoundException("Post with id " + id + " not found"));
     }
 
     @PutMapping(path = "/{id}")
@@ -64,10 +59,6 @@ public class PostsController {
 
     @DeleteMapping(path = "/{id}")
     public void destroy(@PathVariable Long id) {
-        if (!postRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Post with id " + id + " not found");
-        }
-
         commentRepository.deleteByPostId(id);
         postRepository.deleteById(id);
     }
