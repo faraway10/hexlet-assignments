@@ -5,9 +5,10 @@ package exercise.daytime;
 // которые реализуют этот интерфейс
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Component
+@RequestScope
 public interface Daytime {
-
     String getName();
 }
