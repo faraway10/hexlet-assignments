@@ -43,7 +43,7 @@ public class ArticleController {
     // BEGIN
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    ArticleDTO create(ArticleCreateDTO articleData) {
+    ArticleDTO create(@RequestBody @Valid ArticleCreateDTO articleData) {
         var article = articleMapper.map(articleData);
         article.setAuthor(userUtils.getCurrentUser());
         articleRepository.save(article);

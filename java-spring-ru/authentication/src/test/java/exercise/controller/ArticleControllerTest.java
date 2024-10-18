@@ -116,7 +116,6 @@ class ArticleControllerTest {
     @Test
     public void testCreate() throws Exception {
         var dto = mapper.map(testArticle);
-
         var request = post("/articles")
                 .with(token)
                 .contentType(MediaType.APPLICATION_JSON)
