@@ -13,9 +13,7 @@ public class MinThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("INFO: Thread " + getName() + " started");
         result = Arrays.stream(arr).min().getAsInt();
-        System.out.println("INFO: Thread " + getName() + " finished");
     }
 
     public Integer getResult() {

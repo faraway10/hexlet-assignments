@@ -13,9 +13,7 @@ public class MaxThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println("INFO: Thread " + getName() + " started");
         result = Arrays.stream(arr).max().getAsInt();
-        System.out.println("INFO: Thread " + getName() + " finished");
     }
 
     public Integer getResult() {
