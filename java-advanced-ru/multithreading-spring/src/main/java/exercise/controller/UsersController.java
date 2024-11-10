@@ -42,8 +42,7 @@ public class UsersController {
 
     @PatchMapping(path = "/{id}")
     public Mono<User> updateUser(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
-        return userService.update(user);
+        return userService.update(id, user);
     }
 
     @DeleteMapping(path = "/{id}")

@@ -28,7 +28,8 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public Mono<User> update(User user) {
+    public Mono<User> update(Long id, User user) {
+        user.setId(id);
         return userRepository.save(user);
     }
 
