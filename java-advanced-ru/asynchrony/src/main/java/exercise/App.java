@@ -16,7 +16,7 @@ class App {
                 Path path1 = Paths.get(filePath1);
                 return Files.readString(path1);
             } catch (IOException e) {
-                throw new IllegalStateException(e);
+                throw new RuntimeException(e);
             }
         });
 
@@ -25,32 +25,27 @@ class App {
                 Path path2 = Paths.get(filePath2);
                 return Files.readString(path2);
             } catch (IOException e) {
-                throw new IllegalStateException(e);
+                throw new RuntimeException(e);
             }
         });
 
         CompletableFuture<String> future3 = future1.thenCombine(future2, (str1, str2) -> {
-            Path path3 = Paths.get(resultFilePath);
             try {
+                Path path3 = Paths.get(resultFilePath);
                 Files.writeString(path3, str1);
                 Files.writeString(path3, str2, StandardOpenOption.APPEND);
+                return str1 + str2;
             } catch (IOException e) {
-                throw new IllegalStateException(e);
+                throw new RuntimeException(e);
             }
-            return str1 + str2;
         }).exceptionally(ex -> {
             System.out.println(ex.getMessage());
             return null;
         });
 
         return future3;
-
     }
     // END
 
-    public static void main(String[] args) throws Exception {
-        // BEGIN
-
-        // END
-    }
+    public static void main(String[] args) throws Exception { }
 }
