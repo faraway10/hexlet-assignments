@@ -47,7 +47,7 @@ public class UsersController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public Mono deleteUser(@PathVariable Long id) {
+    public Mono<Void> deleteUser(@PathVariable Long id) {
         return userService.deleteById(id);
     }
     // END
